@@ -2,27 +2,33 @@
 import React from 'react';
 import { Home, Box, Users, Activity, Truck, Calendar, HelpCircle, BarChart4 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 type SidebarItemProps = {
   icon: React.ReactNode;
   label: string;
-  active?: boolean;
+  to: string;
   notificationCount?: number;
 };
 
-const SidebarItem = ({ icon, label, active = false, notificationCount }: SidebarItemProps) => {
+const SidebarItem = ({ icon, label, to, notificationCount }: SidebarItemProps) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+  
   return (
     <li className={cn(
       "flex items-center px-3 py-2 rounded-md cursor-pointer",
-      active ? "bg-tniau-lightblue text-white" : "text-white/80 hover:text-white hover:bg-white/10"
+      isActive ? "bg-tniau-lightblue text-white" : "text-white/80 hover:text-white hover:bg-white/10"
     )}>
-      <span className="mr-3">{icon}</span>
-      <span>{label}</span>
-      {notificationCount && (
-        <span className="ml-auto bg-tniau-red text-white text-xs font-medium px-2 py-0.5 rounded-full">
-          {notificationCount}
-        </span>
-      )}
+      <Link to={to} className="flex items-center w-full">
+        <span className="mr-3">{icon}</span>
+        <span>{label}</span>
+        {notificationCount && (
+          <span className="ml-auto bg-tniau-red text-white text-xs font-medium px-2 py-0.5 rounded-full">
+            {notificationCount}
+          </span>
+        )}
+      </Link>
     </li>
   );
 };
@@ -36,13 +42,13 @@ const Sidebar = () => {
       
       <nav className="flex-1 overflow-y-auto py-4">
         <ul className="space-y-1 px-2">
-          <SidebarItem icon={<Home size={20} />} label="Dashboard" active />
-          <SidebarItem icon={<Box size={20} />} label="Logistik & Stok" notificationCount={3} />
-          <SidebarItem icon={<Activity size={20} />} label="Pelayanan Medis" />
-          <SidebarItem icon={<Users size={20} />} label="SDM & Personel" />
-          <SidebarItem icon={<Truck size={20} />} label="Distribusi" />
-          <SidebarItem icon={<Calendar size={20} />} label="Jadwal & Tugas" />
-          <SidebarItem icon={<BarChart4 size={20} />} label="Laporan & Analitik" />
+          <SidebarItem icon={<Home size={20} />} label="Dashboard" to="/" />
+          <SidebarItem icon={<Box size={20} />} label="Logistik & Stok" to="/logistics" notificationCount={3} />
+          <SidebarItem icon={<Activity size={20} />} label="Pelayanan Medis" to="/medical-services" />
+          <SidebarItem icon={<Users size={20} />} label="SDM & Personel" to="/personnel" />
+          <SidebarItem icon={<Truck size={20} />} label="Distribusi" to="/distribution" />
+          <SidebarItem icon={<Calendar size={20} />} label="Jadwal & Tugas" to="/schedule" />
+          <SidebarItem icon={<BarChart4 size={20} />} label="Laporan & Analitik" to="/reports" />
         </ul>
       </nav>
       
