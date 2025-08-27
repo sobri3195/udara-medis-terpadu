@@ -127,8 +127,13 @@ const LogisticsAndInventory = () => {
         <main className="flex-1 overflow-auto bg-gray-50 p-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-1">Logistik & Stok</h1>
-              <p className="text-muted-foreground">Manajemen persediaan obat, alat kesehatan, dan suplai medis</p>
+              <h1 className="text-2xl font-bold mb-1">Logistik & Inventori - CRUD Aktif</h1>
+              <p className="text-muted-foreground">Manajemen persediaan dengan sistem role-based access control</p>
+            </div>
+            
+            {/* Import the CRUD component */}
+            <div className="mb-6">
+              <InventoryCRUD />
             </div>
 
             {/* Summary Cards */}
