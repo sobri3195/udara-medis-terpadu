@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
+import InventoryCRUD from '@/components/crud/InventoryCRUD';
 import { Package, Pill, Syringe, Clipboard, AlertCircle, ArrowUpRight } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';

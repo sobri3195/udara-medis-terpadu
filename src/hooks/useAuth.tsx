@@ -69,16 +69,50 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     );
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchUserRole(session.user.id);
+    // Check for existing session first
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session) {
+        setSession(session);
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          fetchUserRole(session.user.id);
+        }
+        setIsLoading(false);
+      } else {
+        // Auto-login for development/testing - bypass login
+        try {
+          const { data: testUser, error } = await supabase.auth.signInWithPassword({
+            email: 'admin@test.com',
+            password: 'password123'
+          });
+          
+          if (error) {
+            // If test user doesn't exist, create one
+            const { error: signUpError } = await supabase.auth.signUp({
+              email: 'admin@test.com',
+              password: 'password123',
+              options: {
+                emailRedirectTo: `${window.location.origin}/`,
+                data: {
+                  full_name: 'Test Admin'
+                }
+              }
+            });
+            
+            if (!signUpError) {
+              // Try to sign in again after signup
+              await supabase.auth.signInWithPassword({
+                email: 'admin@test.com',
+                password: 'password123'
+              });
+            }
+          }
+        } catch (autoLoginError) {
+          console.log('Auto-login failed:', autoLoginError);
+        } finally {
+          setIsLoading(false);
+        }
       }
-      
-      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
