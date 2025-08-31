@@ -7,14 +7,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
-
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import LogisticsAndInventory from "./pages/LogisticsAndInventory";
+import AdvancedLogistics from "./pages/AdvancedLogistics";
 import MedicalServices from "./pages/MedicalServices";
 import Personnel from "./pages/Personnel";
 import Distribution from "./pages/Distribution";
 import Schedule from "./pages/Schedule";
 import Reports from "./pages/Reports";
+import Analytics from "./pages/Analytics";
+import QualityCompliance from "./pages/QualityCompliance";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            <Route path="/auth" element={<Auth />} />
             <Route path="/" element={
               <ProtectedRoute>
                 <Index />
@@ -34,6 +38,11 @@ const App = () => (
             <Route path="/logistics" element={
               <ProtectedRoute>
                 <LogisticsAndInventory />
+              </ProtectedRoute>
+            } />
+            <Route path="/advanced-logistics" element={
+              <ProtectedRoute>
+                <AdvancedLogistics />
               </ProtectedRoute>
             } />
             <Route path="/medical-services" element={
@@ -59,6 +68,16 @@ const App = () => (
             <Route path="/reports" element={
               <ProtectedRoute>
                 <Reports />
+              </ProtectedRoute>
+            } />
+            <Route path="/analytics" element={
+              <ProtectedRoute>
+                <Analytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/quality-compliance" element={
+              <ProtectedRoute>
+                <QualityCompliance />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
