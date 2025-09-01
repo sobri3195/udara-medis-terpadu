@@ -18,6 +18,7 @@ import Schedule from "./pages/Schedule";
 import Reports from "./pages/Reports";
 import Analytics from "./pages/Analytics";
 import QualityCompliance from "./pages/QualityCompliance";
+import MilitaryOperations from "./pages/MilitaryOperations";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,11 @@ const App = () => (
             <Route path="/logistics" element={
               <ProtectedRoute>
                 <LogisticsAndInventory />
+              </ProtectedRoute>
+            } />
+            <Route path="/military-operations" element={
+              <ProtectedRoute>
+                <MilitaryOperations />
               </ProtectedRoute>
             } />
             <Route path="/advanced-logistics" element={

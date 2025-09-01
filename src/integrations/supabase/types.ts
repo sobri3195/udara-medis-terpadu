@@ -89,6 +89,84 @@ export type Database = {
         }
         Relationships: []
       }
+      airdrop_operations: {
+        Row: {
+          actual_date: string | null
+          aircraft_type: string
+          cargo_manifest: Json | null
+          coordinates: Json
+          created_at: string
+          created_by: string | null
+          drop_zone_conditions: string | null
+          ground_contact_info: Json | null
+          id: string
+          mission_success_rate: number | null
+          operation_code: string
+          operation_name: string
+          pilot_assigned: string | null
+          priority_level: string
+          recipient_unit: string
+          recovery_team: string[] | null
+          scheduled_date: string
+          status: string
+          target_location: string
+          theater_id: string | null
+          total_weight: number | null
+          updated_at: string
+          weather_status: string | null
+        }
+        Insert: {
+          actual_date?: string | null
+          aircraft_type: string
+          cargo_manifest?: Json | null
+          coordinates: Json
+          created_at?: string
+          created_by?: string | null
+          drop_zone_conditions?: string | null
+          ground_contact_info?: Json | null
+          id?: string
+          mission_success_rate?: number | null
+          operation_code: string
+          operation_name: string
+          pilot_assigned?: string | null
+          priority_level?: string
+          recipient_unit: string
+          recovery_team?: string[] | null
+          scheduled_date: string
+          status?: string
+          target_location: string
+          theater_id?: string | null
+          total_weight?: number | null
+          updated_at?: string
+          weather_status?: string | null
+        }
+        Update: {
+          actual_date?: string | null
+          aircraft_type?: string
+          cargo_manifest?: Json | null
+          coordinates?: Json
+          created_at?: string
+          created_by?: string | null
+          drop_zone_conditions?: string | null
+          ground_contact_info?: Json | null
+          id?: string
+          mission_success_rate?: number | null
+          operation_code?: string
+          operation_name?: string
+          pilot_assigned?: string | null
+          priority_level?: string
+          recipient_unit?: string
+          recovery_team?: string[] | null
+          scheduled_date?: string
+          status?: string
+          target_location?: string
+          theater_id?: string | null
+          total_weight?: number | null
+          updated_at?: string
+          weather_status?: string | null
+        }
+        Relationships: []
+      }
       audit_findings: {
         Row: {
           actual_completion_date: string | null
@@ -364,6 +442,186 @@ export type Database = {
         }
         Relationships: []
       }
+      combat_zone_supplies: {
+        Row: {
+          armored_transport_required: boolean | null
+          assigned_medic: string | null
+          consumption_rate: number | null
+          created_at: string
+          created_by: string | null
+          critical_shortage_threshold: number | null
+          evacuation_priority: number | null
+          expiry_date: string | null
+          id: string
+          item_id: string
+          last_resupply: string | null
+          quantity: number
+          special_handling: boolean | null
+          storage_conditions: string | null
+          supply_code: string
+          theater_id: string | null
+          threat_level: string
+          unit_price: number | null
+          updated_at: string
+          zone_designation: string
+        }
+        Insert: {
+          armored_transport_required?: boolean | null
+          assigned_medic?: string | null
+          consumption_rate?: number | null
+          created_at?: string
+          created_by?: string | null
+          critical_shortage_threshold?: number | null
+          evacuation_priority?: number | null
+          expiry_date?: string | null
+          id?: string
+          item_id: string
+          last_resupply?: string | null
+          quantity?: number
+          special_handling?: boolean | null
+          storage_conditions?: string | null
+          supply_code: string
+          theater_id?: string | null
+          threat_level?: string
+          unit_price?: number | null
+          updated_at?: string
+          zone_designation: string
+        }
+        Update: {
+          armored_transport_required?: boolean | null
+          assigned_medic?: string | null
+          consumption_rate?: number | null
+          created_at?: string
+          created_by?: string | null
+          critical_shortage_threshold?: number | null
+          evacuation_priority?: number | null
+          expiry_date?: string | null
+          id?: string
+          item_id?: string
+          last_resupply?: string | null
+          quantity?: number
+          special_handling?: boolean | null
+          storage_conditions?: string | null
+          supply_code?: string
+          theater_id?: string | null
+          threat_level?: string
+          unit_price?: number | null
+          updated_at?: string
+          zone_designation?: string
+        }
+        Relationships: []
+      }
+      command_levels: {
+        Row: {
+          authorization_limits: Json | null
+          communication_protocols: Json | null
+          created_at: string
+          created_by: string | null
+          escalation_procedures: string | null
+          hierarchy_level: number
+          id: string
+          level_code: string
+          level_name: string
+          operational_areas: string[] | null
+          parent_level_id: string | null
+          reporting_frequency: string | null
+          responsible_officers: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          authorization_limits?: Json | null
+          communication_protocols?: Json | null
+          created_at?: string
+          created_by?: string | null
+          escalation_procedures?: string | null
+          hierarchy_level: number
+          id?: string
+          level_code: string
+          level_name: string
+          operational_areas?: string[] | null
+          parent_level_id?: string | null
+          reporting_frequency?: string | null
+          responsible_officers?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          authorization_limits?: Json | null
+          communication_protocols?: Json | null
+          created_at?: string
+          created_by?: string | null
+          escalation_procedures?: string | null
+          hierarchy_level?: number
+          id?: string
+          level_code?: string
+          level_name?: string
+          operational_areas?: string[] | null
+          parent_level_id?: string | null
+          reporting_frequency?: string | null
+          responsible_officers?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      disaster_response_kits: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          deployment_count: number | null
+          deployment_locations: string[] | null
+          disaster_type: string
+          effectiveness_rating: number | null
+          id: string
+          kit_code: string
+          kit_configuration: Json
+          last_deployment: string | null
+          maintenance_schedule: string | null
+          operational_duration_days: number | null
+          personnel_required: number | null
+          response_time_hours: number | null
+          setup_time_hours: number | null
+          transportation_method: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          deployment_count?: number | null
+          deployment_locations?: string[] | null
+          disaster_type: string
+          effectiveness_rating?: number | null
+          id?: string
+          kit_code: string
+          kit_configuration?: Json
+          last_deployment?: string | null
+          maintenance_schedule?: string | null
+          operational_duration_days?: number | null
+          personnel_required?: number | null
+          response_time_hours?: number | null
+          setup_time_hours?: number | null
+          transportation_method?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          deployment_count?: number | null
+          deployment_locations?: string[] | null
+          disaster_type?: string
+          effectiveness_rating?: number | null
+          id?: string
+          kit_code?: string
+          kit_configuration?: Json
+          last_deployment?: string | null
+          maintenance_schedule?: string | null
+          operational_duration_days?: number | null
+          personnel_required?: number | null
+          response_time_hours?: number | null
+          setup_time_hours?: number | null
+          transportation_method?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       distributions: {
         Row: {
           approved_by: string | null
@@ -410,6 +668,126 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      erp_integrations: {
+        Row: {
+          authentication_method: string
+          business_rules: Json | null
+          created_at: string
+          created_by: string | null
+          data_mapping: Json | null
+          endpoint_url: string
+          error_handling: Json | null
+          id: string
+          integration_type: string
+          last_sync: string | null
+          performance_metrics: Json | null
+          sync_frequency: number | null
+          sync_status: string | null
+          system_name: string
+          updated_at: string
+        }
+        Insert: {
+          authentication_method?: string
+          business_rules?: Json | null
+          created_at?: string
+          created_by?: string | null
+          data_mapping?: Json | null
+          endpoint_url: string
+          error_handling?: Json | null
+          id?: string
+          integration_type?: string
+          last_sync?: string | null
+          performance_metrics?: Json | null
+          sync_frequency?: number | null
+          sync_status?: string | null
+          system_name: string
+          updated_at?: string
+        }
+        Update: {
+          authentication_method?: string
+          business_rules?: Json | null
+          created_at?: string
+          created_by?: string | null
+          data_mapping?: Json | null
+          endpoint_url?: string
+          error_handling?: Json | null
+          id?: string
+          integration_type?: string
+          last_sync?: string | null
+          performance_metrics?: Json | null
+          sync_frequency?: number | null
+          sync_status?: string | null
+          system_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      evacuation_kits: {
+        Row: {
+          assigned_unit: string | null
+          contents: Json
+          created_at: string
+          created_by: string | null
+          deployment_ready: boolean | null
+          expiry_date: string | null
+          id: string
+          inspection_notes: string | null
+          kit_code: string
+          kit_name: string
+          kit_type: string
+          last_inspection: string | null
+          location: string
+          maintenance_due: string | null
+          training_required: boolean | null
+          updated_at: string
+          usage_scenarios: string[] | null
+          volume_liters: number | null
+          weight_kg: number
+        }
+        Insert: {
+          assigned_unit?: string | null
+          contents?: Json
+          created_at?: string
+          created_by?: string | null
+          deployment_ready?: boolean | null
+          expiry_date?: string | null
+          id?: string
+          inspection_notes?: string | null
+          kit_code: string
+          kit_name: string
+          kit_type?: string
+          last_inspection?: string | null
+          location: string
+          maintenance_due?: string | null
+          training_required?: boolean | null
+          updated_at?: string
+          usage_scenarios?: string[] | null
+          volume_liters?: number | null
+          weight_kg?: number
+        }
+        Update: {
+          assigned_unit?: string | null
+          contents?: Json
+          created_at?: string
+          created_by?: string | null
+          deployment_ready?: boolean | null
+          expiry_date?: string | null
+          id?: string
+          inspection_notes?: string | null
+          kit_code?: string
+          kit_name?: string
+          kit_type?: string
+          last_inspection?: string | null
+          location?: string
+          maintenance_due?: string | null
+          training_required?: boolean | null
+          updated_at?: string
+          usage_scenarios?: string[] | null
+          volume_liters?: number | null
+          weight_kg?: number
+        }
+        Relationships: []
       }
       expenses: {
         Row: {
@@ -539,6 +917,198 @@ export type Database = {
           sync_frequency?: number | null
           system_name?: string
           system_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      field_hospitals: {
+        Row: {
+          capacity: number | null
+          commander_id: string | null
+          coordinates: Json | null
+          created_at: string
+          created_by: string | null
+          current_patients: number | null
+          deployment_date: string | null
+          deployment_status: string
+          hospital_code: string
+          hospital_name: string
+          id: string
+          location: string
+          logistics_status: string | null
+          medical_equipment: Json | null
+          mission_type: string
+          personnel_assigned: string[] | null
+          supply_requirements: Json | null
+          theater_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number | null
+          commander_id?: string | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          current_patients?: number | null
+          deployment_date?: string | null
+          deployment_status?: string
+          hospital_code: string
+          hospital_name: string
+          id?: string
+          location: string
+          logistics_status?: string | null
+          medical_equipment?: Json | null
+          mission_type?: string
+          personnel_assigned?: string[] | null
+          supply_requirements?: Json | null
+          theater_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number | null
+          commander_id?: string | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          current_patients?: number | null
+          deployment_date?: string | null
+          deployment_status?: string
+          hospital_code?: string
+          hospital_name?: string
+          id?: string
+          location?: string
+          logistics_status?: string | null
+          medical_equipment?: Json | null
+          mission_type?: string
+          personnel_assigned?: string[] | null
+          supply_requirements?: Json | null
+          theater_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gdp_compliance_records: {
+        Row: {
+          audit_trail: Json | null
+          compliance_date: string
+          compliance_status: string
+          corrective_actions: string | null
+          created_at: string
+          created_by: string | null
+          deviations: string | null
+          documentation_reference: string | null
+          facility_location: string
+          humidity_percentage: number | null
+          id: string
+          inspector_id: string | null
+          item_id: string | null
+          record_type: string
+          storage_conditions: string | null
+          temperature_celsius: number | null
+          updated_at: string
+          verification_date: string | null
+        }
+        Insert: {
+          audit_trail?: Json | null
+          compliance_date?: string
+          compliance_status?: string
+          corrective_actions?: string | null
+          created_at?: string
+          created_by?: string | null
+          deviations?: string | null
+          documentation_reference?: string | null
+          facility_location: string
+          humidity_percentage?: number | null
+          id?: string
+          inspector_id?: string | null
+          item_id?: string | null
+          record_type?: string
+          storage_conditions?: string | null
+          temperature_celsius?: number | null
+          updated_at?: string
+          verification_date?: string | null
+        }
+        Update: {
+          audit_trail?: Json | null
+          compliance_date?: string
+          compliance_status?: string
+          corrective_actions?: string | null
+          created_at?: string
+          created_by?: string | null
+          deviations?: string | null
+          documentation_reference?: string | null
+          facility_location?: string
+          humidity_percentage?: number | null
+          id?: string
+          inspector_id?: string | null
+          item_id?: string | null
+          record_type?: string
+          storage_conditions?: string | null
+          temperature_celsius?: number | null
+          updated_at?: string
+          verification_date?: string | null
+        }
+        Relationships: []
+      }
+      gps_tracking: {
+        Row: {
+          accuracy_meters: number | null
+          altitude_meters: number | null
+          asset_id: string
+          asset_type: string
+          battery_level: number | null
+          created_at: string
+          created_by: string | null
+          current_coordinates: Json
+          estimated_arrival: string | null
+          geofence_violations: number | null
+          heading_degrees: number | null
+          id: string
+          last_update: string | null
+          previous_coordinates: Json | null
+          route_adherence: number | null
+          signal_strength: number | null
+          speed_kmh: number | null
+          updated_at: string
+        }
+        Insert: {
+          accuracy_meters?: number | null
+          altitude_meters?: number | null
+          asset_id: string
+          asset_type: string
+          battery_level?: number | null
+          created_at?: string
+          created_by?: string | null
+          current_coordinates: Json
+          estimated_arrival?: string | null
+          geofence_violations?: number | null
+          heading_degrees?: number | null
+          id?: string
+          last_update?: string | null
+          previous_coordinates?: Json | null
+          route_adherence?: number | null
+          signal_strength?: number | null
+          speed_kmh?: number | null
+          updated_at?: string
+        }
+        Update: {
+          accuracy_meters?: number | null
+          altitude_meters?: number | null
+          asset_id?: string
+          asset_type?: string
+          battery_level?: number | null
+          created_at?: string
+          created_by?: string | null
+          current_coordinates?: Json
+          estimated_arrival?: string | null
+          geofence_violations?: number | null
+          heading_degrees?: number | null
+          id?: string
+          last_update?: string | null
+          previous_coordinates?: Json | null
+          route_adherence?: number | null
+          signal_strength?: number | null
+          speed_kmh?: number | null
           updated_at?: string
         }
         Relationships: []
@@ -938,6 +1508,66 @@ export type Database = {
         }
         Relationships: []
       }
+      mobile_command_units: {
+        Row: {
+          communication_equipment: Json | null
+          coordinates: Json | null
+          created_at: string
+          created_by: string | null
+          crew_assigned: string[] | null
+          current_location: string | null
+          deployment_history: Json | null
+          equipment_status: Json | null
+          fuel_level: number | null
+          id: string
+          maintenance_due: string | null
+          mission_assigned: string | null
+          operational_status: string | null
+          unit_code: string
+          unit_name: string
+          updated_at: string
+          vehicle_type: string
+        }
+        Insert: {
+          communication_equipment?: Json | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          crew_assigned?: string[] | null
+          current_location?: string | null
+          deployment_history?: Json | null
+          equipment_status?: Json | null
+          fuel_level?: number | null
+          id?: string
+          maintenance_due?: string | null
+          mission_assigned?: string | null
+          operational_status?: string | null
+          unit_code: string
+          unit_name: string
+          updated_at?: string
+          vehicle_type: string
+        }
+        Update: {
+          communication_equipment?: Json | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          crew_assigned?: string[] | null
+          current_location?: string | null
+          deployment_history?: Json | null
+          equipment_status?: Json | null
+          fuel_level?: number | null
+          id?: string
+          maintenance_due?: string | null
+          mission_assigned?: string | null
+          operational_status?: string | null
+          unit_code?: string
+          unit_name?: string
+          updated_at?: string
+          vehicle_type?: string
+        }
+        Relationships: []
+      }
       personnel: {
         Row: {
           contact_info: Json | null
@@ -1064,6 +1694,69 @@ export type Database = {
         }
         Relationships: []
       }
+      regional_distribution_centers: {
+        Row: {
+          center_code: string
+          center_name: string
+          cold_storage_capacity: number | null
+          coordinates: Json | null
+          created_at: string
+          created_by: string | null
+          current_utilization_percentage: number | null
+          equipment_inventory: Json | null
+          id: string
+          last_audit_date: string | null
+          operational_status: string | null
+          region: string
+          security_level: string | null
+          served_bases: string[] | null
+          staff_count: number | null
+          storage_capacity_cubic_meters: number
+          transportation_hub: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          center_code: string
+          center_name: string
+          cold_storage_capacity?: number | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          current_utilization_percentage?: number | null
+          equipment_inventory?: Json | null
+          id?: string
+          last_audit_date?: string | null
+          operational_status?: string | null
+          region: string
+          security_level?: string | null
+          served_bases?: string[] | null
+          staff_count?: number | null
+          storage_capacity_cubic_meters?: number
+          transportation_hub?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          center_code?: string
+          center_name?: string
+          cold_storage_capacity?: number | null
+          coordinates?: Json | null
+          created_at?: string
+          created_by?: string | null
+          current_utilization_percentage?: number | null
+          equipment_inventory?: Json | null
+          id?: string
+          last_audit_date?: string | null
+          operational_status?: string | null
+          region?: string
+          security_level?: string | null
+          served_bases?: string[] | null
+          staff_count?: number | null
+          storage_capacity_cubic_meters?: number
+          transportation_hub?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       schedules: {
         Row: {
           assigned_personnel: string[] | null
@@ -1102,6 +1795,249 @@ export type Database = {
           status?: string | null
           title?: string
           type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      security_classifications: {
+        Row: {
+          access_requirements: string[]
+          authorized_personnel_roles: string[] | null
+          classification_level: string
+          clearance_level_required: number
+          created_at: string
+          created_by: string | null
+          disposal_procedures: string | null
+          handling_procedures: string
+          id: string
+          retention_period: string | null
+          storage_requirements: string
+          transmission_protocols: string | null
+          updated_at: string
+        }
+        Insert: {
+          access_requirements?: string[]
+          authorized_personnel_roles?: string[] | null
+          classification_level: string
+          clearance_level_required?: number
+          created_at?: string
+          created_by?: string | null
+          disposal_procedures?: string | null
+          handling_procedures: string
+          id?: string
+          retention_period?: string | null
+          storage_requirements: string
+          transmission_protocols?: string | null
+          updated_at?: string
+        }
+        Update: {
+          access_requirements?: string[]
+          authorized_personnel_roles?: string[] | null
+          classification_level?: string
+          clearance_level_required?: number
+          created_at?: string
+          created_by?: string | null
+          disposal_procedures?: string | null
+          handling_procedures?: string
+          id?: string
+          retention_period?: string | null
+          storage_requirements?: string
+          transmission_protocols?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      strategic_plans: {
+        Row: {
+          approval_status: string | null
+          approved_by: string | null
+          budget_estimate: number | null
+          created_at: string
+          created_by: string | null
+          id: string
+          implementation_date: string | null
+          objectives: Json
+          plan_code: string
+          plan_name: string
+          plan_type: string
+          resource_requirements: Json | null
+          responsible_units: string[] | null
+          review_date: string | null
+          risk_factors: Json | null
+          success_metrics: Json | null
+          time_horizon: string
+          updated_at: string
+        }
+        Insert: {
+          approval_status?: string | null
+          approved_by?: string | null
+          budget_estimate?: number | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          implementation_date?: string | null
+          objectives?: Json
+          plan_code: string
+          plan_name: string
+          plan_type?: string
+          resource_requirements?: Json | null
+          responsible_units?: string[] | null
+          review_date?: string | null
+          risk_factors?: Json | null
+          success_metrics?: Json | null
+          time_horizon?: string
+          updated_at?: string
+        }
+        Update: {
+          approval_status?: string | null
+          approved_by?: string | null
+          budget_estimate?: number | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          implementation_date?: string | null
+          objectives?: Json
+          plan_code?: string
+          plan_name?: string
+          plan_type?: string
+          resource_requirements?: Json | null
+          responsible_units?: string[] | null
+          review_date?: string | null
+          risk_factors?: Json | null
+          success_metrics?: Json | null
+          time_horizon?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      supply_chain_risks: {
+        Row: {
+          affected_items: string[] | null
+          contingency_plans: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          impact_score: number
+          last_assessment: string | null
+          mitigation_strategies: string[] | null
+          monitoring_frequency: string | null
+          next_review: string | null
+          probability_score: number
+          responsible_officer: string | null
+          risk_category: string
+          risk_code: string
+          risk_description: string
+          risk_level: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          affected_items?: string[] | null
+          contingency_plans?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impact_score?: number
+          last_assessment?: string | null
+          mitigation_strategies?: string[] | null
+          monitoring_frequency?: string | null
+          next_review?: string | null
+          probability_score?: number
+          responsible_officer?: string | null
+          risk_category: string
+          risk_code: string
+          risk_description: string
+          risk_level?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          affected_items?: string[] | null
+          contingency_plans?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impact_score?: number
+          last_assessment?: string | null
+          mitigation_strategies?: string[] | null
+          monitoring_frequency?: string | null
+          next_review?: string | null
+          probability_score?: number
+          responsible_officer?: string | null
+          risk_category?: string
+          risk_code?: string
+          risk_description?: string
+          risk_level?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      theater_operations: {
+        Row: {
+          budget_allocated: number | null
+          budget_spent: number | null
+          commander_id: string
+          communication_protocols: Json | null
+          created_at: string
+          created_by: string | null
+          end_date: string | null
+          evacuation_procedures: string | null
+          geographic_bounds: Json | null
+          id: string
+          logistics_requirements: Json | null
+          operation_type: string
+          participating_units: string[] | null
+          risk_assessment_level: string | null
+          start_date: string
+          status: string
+          supply_chain_priorities: string[] | null
+          theater_code: string
+          theater_name: string
+          updated_at: string
+        }
+        Insert: {
+          budget_allocated?: number | null
+          budget_spent?: number | null
+          commander_id: string
+          communication_protocols?: Json | null
+          created_at?: string
+          created_by?: string | null
+          end_date?: string | null
+          evacuation_procedures?: string | null
+          geographic_bounds?: Json | null
+          id?: string
+          logistics_requirements?: Json | null
+          operation_type?: string
+          participating_units?: string[] | null
+          risk_assessment_level?: string | null
+          start_date: string
+          status?: string
+          supply_chain_priorities?: string[] | null
+          theater_code: string
+          theater_name: string
+          updated_at?: string
+        }
+        Update: {
+          budget_allocated?: number | null
+          budget_spent?: number | null
+          commander_id?: string
+          communication_protocols?: Json | null
+          created_at?: string
+          created_by?: string | null
+          end_date?: string | null
+          evacuation_procedures?: string | null
+          geographic_bounds?: Json | null
+          id?: string
+          logistics_requirements?: Json | null
+          operation_type?: string
+          participating_units?: string[] | null
+          risk_assessment_level?: string | null
+          start_date?: string
+          status?: string
+          supply_chain_priorities?: string[] | null
+          theater_code?: string
+          theater_name?: string
           updated_at?: string
         }
         Relationships: []
