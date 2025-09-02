@@ -82,19 +82,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         // Auto-login for development/testing - bypass login
         try {
           const { data: testUser, error } = await supabase.auth.signInWithPassword({
-            email: 'admin@test.com',
+            email: 'admin@tni-au.mil.id',
             password: 'password123'
           });
           
           if (error) {
             // If test user doesn't exist, create one
             const { error: signUpError } = await supabase.auth.signUp({
-              email: 'admin@test.com',
+              email: 'admin@tni-au.mil.id',
               password: 'password123',
               options: {
                 emailRedirectTo: `${window.location.origin}/`,
                 data: {
-                  full_name: 'Test Admin'
+                  full_name: 'Administrator TNI AU'
                 }
               }
             });
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             if (!signUpError) {
               // Try to sign in again after signup
               await supabase.auth.signInWithPassword({
-                email: 'admin@test.com',
+                email: 'admin@tni-au.mil.id',
                 password: 'password123'
               });
             }
