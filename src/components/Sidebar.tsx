@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Box, Users, Activity, Truck, Calendar, HelpCircle, BarChart4, Settings, Shield, Zap } from 'lucide-react';
+import { Home, Box, Users, Activity, Truck, Calendar, HelpCircle, BarChart4, Settings, Shield, Zap, Crosshair } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -45,6 +45,7 @@ const Sidebar = () => {
           <SidebarItem icon={<Home size={20} />} label="Dashboard" to="/" />
           <SidebarItem icon={<Box size={20} />} label="Logistik & Stok" to="/logistics" notificationCount={3} />
           <SidebarItem icon={<Zap size={20} />} label="Logistik Lanjutan" to="/advanced-logistics" />
+          <SidebarItem icon={<Crosshair size={20} />} label="Operasi Militer" to="/military-operations" />
           <SidebarItem icon={<Activity size={20} />} label="Pelayanan Medis" to="/medical-services" />
           <SidebarItem icon={<Users size={20} />} label="SDM & Personel" to="/personnel" />
           <SidebarItem icon={<Truck size={20} />} label="Distribusi" to="/distribution" />
