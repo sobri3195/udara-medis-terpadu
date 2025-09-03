@@ -43,8 +43,8 @@ export function AirdropCoordination() {
     table: 'airdrop_operations',
     orderBy: { column: 'scheduled_date', ascending: true }
   });
-  const { user } = useAuth();
-  const canEdit = true; // For now, allow all authenticated users to edit
+  const { user, canManage } = useAuth();
+  const canEdit = canManage('military_operations');
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingOperation, setEditingOperation] = useState<AirdropOperation | null>(null);

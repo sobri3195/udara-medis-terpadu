@@ -39,8 +39,8 @@ export function FieldHospitalManagement() {
     table: 'field_hospitals',
     orderBy: { column: 'created_at', ascending: false }
   });
-  const { user } = useAuth();
-  const canEdit = true; // For now, allow all authenticated users to edit
+  const { user, canManage } = useAuth();
+  const canEdit = canManage('military_operations');
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingHospital, setEditingHospital] = useState<FieldHospital | null>(null);

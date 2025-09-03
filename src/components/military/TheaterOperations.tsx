@@ -41,8 +41,8 @@ export function TheaterOperations() {
     table: 'theater_operations',
     orderBy: { column: 'start_date', ascending: false }
   });
-  const { user } = useAuth();
-  const canEdit = true; // For now, allow all authenticated users to edit
+  const { user, canManage } = useAuth();
+  const canEdit = canManage('military_operations');
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingOperation, setEditingOperation] = useState<TheaterOperation | null>(null);

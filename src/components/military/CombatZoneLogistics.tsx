@@ -41,8 +41,8 @@ export function CombatZoneLogistics() {
     table: 'combat_zone_supplies',
     orderBy: { column: 'evacuation_priority', ascending: true }
   });
-  const { user } = useAuth();
-  const canEdit = true; // For now, allow all authenticated users to edit
+  const { user, canManage } = useAuth();
+  const canEdit = canManage('military_operations');
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingSupply, setEditingSupply] = useState<CombatZoneSupply | null>(null);

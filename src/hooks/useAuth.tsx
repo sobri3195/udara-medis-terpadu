@@ -193,6 +193,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return ['kapuskesau', 'wakapuskesau', 'karspau', 'kalakespra'].includes(userRole);
       case 'medical_services':
         return ['kapuskesau', 'wakapuskesau', 'karspau', 'kasubdis'].includes(userRole);
+      case 'military_operations':
+        return ['kapuskesau', 'wakapuskesau', 'karspau', 'kalakespra'].includes(userRole);
       case 'schedules':
         return ['kapuskesau', 'wakapuskesau'].includes(userRole);
       case 'users':

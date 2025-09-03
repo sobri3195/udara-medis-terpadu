@@ -11,7 +11,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
 
-  // Authentication is currently disabled
+  useEffect(() => {
+    if (!isLoading && !user) {
+      navigate('/auth');
+    }
+  }, [user, isLoading, navigate]);
 
   if (isLoading) {
     return (
@@ -25,7 +29,10 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     );
   }
 
-  // Since authentication is disabled, always render children
+  if (!user) {
+    return null; // Will redirect to /auth
+  }
+
   return <>{children}</>;
 };
 

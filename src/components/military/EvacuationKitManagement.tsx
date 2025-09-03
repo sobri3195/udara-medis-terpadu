@@ -40,8 +40,8 @@ export function EvacuationKitManagement() {
     table: 'evacuation_kits',
     orderBy: { column: 'deployment_ready', ascending: false }
   });
-  const { user } = useAuth();
-  const canEdit = true; // For now, allow all authenticated users to edit
+  const { user, canManage } = useAuth();
+  const canEdit = canManage('military_operations');
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingKit, setEditingKit] = useState<EvacuationKit | null>(null);
