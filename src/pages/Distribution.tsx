@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Truck, Package, Map, Calendar, Clock } from 'lucide-react';
+import DistributionCRUD from '@/components/crud/DistributionCRUD';
 
 const Distribution = () => {
   return (
@@ -14,8 +15,13 @@ const Distribution = () => {
         <main className="flex-1 overflow-auto bg-gray-50 p-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-1">Distribusi</h1>
-              <p className="text-muted-foreground">Manajemen distribusi logistik medis antar rumah sakit TNI AU</p>
+              <h1 className="text-2xl font-bold mb-1">Distribusi - CRUD Aktif</h1>
+              <p className="text-muted-foreground">Manajemen distribusi dengan sistem role-based access control</p>
+            </div>
+
+            {/* CRUD Component for Distribution */}
+            <div className="mb-6">
+              <DistributionCRUD />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">

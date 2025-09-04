@@ -112,9 +112,14 @@ const Dashboard = () => {
         <Sidebar />
         <main className="flex-1 overflow-auto bg-gray-50 p-4">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-1">Dashboard Komando Terintegrasi</h1>
-              <p className="text-muted-foreground">Ringkasan status dan kinerja sistem medis TNI AU</p>
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold mb-1">Dashboard Komando Terintegrasi</h1>
+                <p className="text-muted-foreground">Sistem medis TNI AU dengan role-based access control aktif</p>
+              </div>
+              <div className="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                Keamanan: Aktif ✓
+              </div>
             </div>
 
             {/* Statistics Row */}

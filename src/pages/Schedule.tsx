@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Clock, Users, List } from 'lucide-react';
+import ScheduleCRUD from '@/components/crud/ScheduleCRUD';
 
 const Schedule = () => {
   return (
@@ -14,8 +15,13 @@ const Schedule = () => {
         <main className="flex-1 overflow-auto bg-gray-50 p-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-1">Jadwal & Tugas</h1>
-              <p className="text-muted-foreground">Manajemen jadwal dan penugasan personel medis TNI AU</p>
+              <h1 className="text-2xl font-bold mb-1">Jadwal & Tugas - CRUD Aktif</h1>
+              <p className="text-muted-foreground">Manajemen jadwal dengan sistem role-based access control</p>
+            </div>
+
+            {/* CRUD Component for Schedules */}
+            <div className="mb-6">
+              <ScheduleCRUD />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">

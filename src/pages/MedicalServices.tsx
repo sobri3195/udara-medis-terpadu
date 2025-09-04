@@ -4,8 +4,108 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Activity, Users, Clock, Calendar, List, FileText } from 'lucide-react';
+import { useCRUD } from '@/hooks/useCRUD';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+interface MedicalService {
+  id: string;
+  service_name: string;
+  department: string;
+  description?: string;
+  capacity: number;
+  current_load: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const MedicalServices = () => {
+  const { data: services, loading, create, update, remove } = useCRUD({
+    table: 'medical_services',
+    orderBy: { column: 'service_name', ascending: true }
+  });
+  const { canManage } = useAuth();
+  
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    service_name: '',
+    department: '',
+    description: '',
+    capacity: 0,
+    current_load: 0,
+    status: 'active'
+  });
+
+  const canEdit = canManage('medical_services');
+
+  const resetForm = () => {
+    setFormData({
+      service_name: '',
+      department: '',
+      description: '',
+      capacity: 0,
+      current_load: 0,
+      status: 'active'
+    });
+    setEditingId(null);
+  };
+
+  const handleSubmit = async () => {
+    if (editingId) {
+      await update(editingId, formData);
+    } else {
+      await create(formData);
+    }
+    setIsDialogOpen(false);
+    resetForm();
+  };
+
+  const handleEdit = (service: MedicalService) => {
+    setFormData({
+      service_name: service.service_name,
+      department: service.department,
+      description: service.description || '',
+      capacity: service.capacity,
+      current_load: service.current_load,
+      status: service.status
+    });
+    setEditingId(service.id);
+    setIsDialogOpen(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus layanan medis ini?')) {
+      await remove(id);
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    const statusConfig = {
+      active: { variant: 'default' as const, label: 'Aktif' },
+      inactive: { variant: 'secondary' as const, label: 'Non-Aktif' },
+      maintenance: { variant: 'secondary' as const, label: 'Maintenance' }
+    };
+    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.active;
+    return <Badge variant={config.variant}>{config.label}</Badge>;
+  };
+
+  const getCapacityColor = (current: number, capacity: number) => {
+    const percentage = (current / capacity) * 100;
+    if (percentage >= 90) return 'bg-red-500';
+    if (percentage >= 75) return 'bg-amber-500';
+    return 'bg-green-500';
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <Header />
@@ -14,9 +114,163 @@ const MedicalServices = () => {
         <main className="flex-1 overflow-auto bg-gray-50 p-4">
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-1">Pelayanan Medis</h1>
-              <p className="text-muted-foreground">Manajemen pelayanan medis dan monitoring pasien</p>
+              <h1 className="text-2xl font-bold mb-1">Pelayanan Medis - CRUD Aktif</h1>
+              <p className="text-muted-foreground">Manajemen pelayanan medis dengan sistem role-based access control</p>
             </div>
+
+            {/* CRUD Component for Medical Services */}
+            <Card className="mb-6">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>Manajemen Layanan Medis</CardTitle>
+                {canEdit && (
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button onClick={resetForm}>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Tambah Layanan
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>
+                          {editingId ? 'Edit Layanan Medis' : 'Tambah Layanan Medis'}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="service_name">Nama Layanan</Label>
+                            <Input
+                              id="service_name"
+                              value={formData.service_name}
+                              onChange={(e) => setFormData(prev => ({ ...prev, service_name: e.target.value }))}
+                              placeholder="Nama layanan medis"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="department">Departemen</Label>
+                            <Input
+                              id="department"
+                              value={formData.department}
+                              onChange={(e) => setFormData(prev => ({ ...prev, department: e.target.value }))}
+                              placeholder="Departemen"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="description">Deskripsi</Label>
+                          <Input
+                            id="description"
+                            value={formData.description}
+                            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                            placeholder="Deskripsi layanan"
+                          />
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-4">
+                          <div>
+                            <Label htmlFor="capacity">Kapasitas</Label>
+                            <Input
+                              id="capacity"
+                              type="number"
+                              value={formData.capacity}
+                              onChange={(e) => setFormData(prev => ({ ...prev, capacity: Number(e.target.value) }))}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="current_load">Beban Saat Ini</Label>
+                            <Input
+                              id="current_load"
+                              type="number"
+                              value={formData.current_load}
+                              onChange={(e) => setFormData(prev => ({ ...prev, current_load: Number(e.target.value) }))}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="status">Status</Label>
+                            <Select value={formData.status} onValueChange={(value) => setFormData(prev => ({ ...prev, status: value }))}>
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="active">Aktif</SelectItem>
+                                <SelectItem value="inactive">Non-Aktif</SelectItem>
+                                <SelectItem value="maintenance">Maintenance</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-end gap-2 pt-4">
+                          <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                            <X className="h-4 w-4 mr-2" />
+                            Batal
+                          </Button>
+                          <Button onClick={handleSubmit}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Simpan
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama Layanan</TableHead>
+                        <TableHead>Departemen</TableHead>
+                        <TableHead>Kapasitas</TableHead>
+                        <TableHead>Beban</TableHead>
+                        <TableHead>Status</TableHead>
+                        {canEdit && <TableHead>Aksi</TableHead>}
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {services.map((service: MedicalService) => (
+                        <TableRow key={service.id}>
+                          <TableCell className="font-medium">{service.service_name}</TableCell>
+                          <TableCell>{service.department}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center space-x-2">
+                              <span>{service.current_load}/{service.capacity}</span>
+                              <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div 
+                                  className={`h-full ${getCapacityColor(service.current_load, service.capacity)}`}
+                                  style={{ width: `${Math.min(100, (service.current_load / service.capacity) * 100)}%` }}
+                                />
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {Math.round((service.current_load / service.capacity) * 100)}%
+                          </TableCell>
+                          <TableCell>{getStatusBadge(service.status)}</TableCell>
+                          {canEdit && (
+                            <TableCell>
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm" onClick={() => handleEdit(service)}>
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button variant="destructive" size="sm" onClick={() => handleDelete(service.id)}>
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          )}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </CardContent>
+            </Card>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <Card>
