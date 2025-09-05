@@ -6,7 +6,10 @@ import { PredictiveAnalytics } from "@/components/analytics/PredictiveAnalytics"
 import { OperationalDashboard } from "@/components/analytics/OperationalDashboard";
 import { CostManagement } from "@/components/analytics/CostManagement";
 import { ExternalIntegration } from "@/components/analytics/ExternalIntegration";
-import { TrendingUp, BarChart3, DollarSign, Globe } from "lucide-react";
+import BPJSIntegration from "@/components/analytics/BPJSIntegration";
+import DisasterManagement from "@/components/analytics/DisasterManagement";
+import WHOCompliance from "@/components/analytics/WHOCompliance";
+import { TrendingUp, BarChart3, DollarSign, Globe, Database, Shield, FileText } from "lucide-react";
 
 export default function Analytics() {
   return (
@@ -24,7 +27,7 @@ export default function Analytics() {
             </div>
 
             <Tabs defaultValue="predictive" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-7">
                 <TabsTrigger value="predictive" className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4" />
                   Predictive Analytics
@@ -40,6 +43,18 @@ export default function Analytics() {
                 <TabsTrigger value="integration" className="flex items-center gap-2">
                   <Globe className="h-4 w-4" />
                   External Integration
+                </TabsTrigger>
+                <TabsTrigger value="bpjs" className="flex items-center gap-2">
+                  <Database className="h-4 w-4" />
+                  BPJS & SatuSehat
+                </TabsTrigger>
+                <TabsTrigger value="disaster" className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  Disaster Management
+                </TabsTrigger>
+                <TabsTrigger value="who" className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  WHO Compliance
                 </TabsTrigger>
               </TabsList>
 
@@ -107,6 +122,57 @@ export default function Analytics() {
                   </CardHeader>
                   <CardContent>
                     <ExternalIntegration />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="bpjs" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Database className="h-5 w-5 text-blue-600" />
+                      BPJS & SatuSehat Integration
+                    </CardTitle>
+                    <CardDescription>
+                      National health system integration for drug demand prediction
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <BPJSIntegration />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="disaster" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-red-600" />
+                      Disaster Management Integration
+                    </CardTitle>
+                    <CardDescription>
+                      BNPB integration for rapid disaster response coordination
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <DisasterManagement />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="who" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="h-5 w-5 text-green-600" />
+                      WHO Standards Compliance
+                    </CardTitle>
+                    <CardDescription>
+                      Automatic reporting for WHO standards and international regulations
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <WHOCompliance />
                   </CardContent>
                 </Card>
               </TabsContent>
