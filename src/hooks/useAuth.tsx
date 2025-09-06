@@ -70,49 +70,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
 
     // Check for existing session first
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
           fetchUserRole(session.user.id);
         }
-        setIsLoading(false);
-      } else {
-        // Auto-login for development/testing - bypass login
-        try {
-          const { data: testUser, error } = await supabase.auth.signInWithPassword({
-            email: 'admin@tni-au.mil.id',
-            password: 'password123'
-          });
-          
-          if (error) {
-            // If test user doesn't exist, create one
-            const { error: signUpError } = await supabase.auth.signUp({
-              email: 'admin@tni-au.mil.id',
-              password: 'password123',
-              options: {
-                emailRedirectTo: `${window.location.origin}/`,
-                data: {
-                  full_name: 'Administrator TNI AU'
-                }
-              }
-            });
-            
-            if (!signUpError) {
-              // Try to sign in again after signup
-              await supabase.auth.signInWithPassword({
-                email: 'admin@tni-au.mil.id',
-                password: 'password123'
-              });
-            }
-          }
-        } catch (autoLoginError) {
-          console.log('Auto-login failed:', autoLoginError);
-        } finally {
-          setIsLoading(false);
-        }
       }
+      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
@@ -125,15 +91,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password,
       });
       
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Berhasil masuk!');
-      }
-      
       return { error };
     } catch (error: any) {
-      toast.error('Terjadi kesalahan saat masuk');
       return { error };
     }
   };
@@ -153,15 +112,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       });
       
-      if (error) {
-        toast.error(error.message);
-      } else {
-        toast.success('Akun berhasil dibuat! Silakan cek email untuk verifikasi.');
-      }
-      
       return { error };
     } catch (error: any) {
-      toast.error('Terjadi kesalahan saat mendaftar');
       return { error };
     }
   };

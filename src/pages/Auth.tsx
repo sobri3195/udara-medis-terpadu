@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Shield, User, Mail, Lock } from 'lucide-react';
+import { Shield, User, Mail, Lock, Info } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -18,9 +19,16 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    // Set default test credentials
+    setEmail('admin@tni-au.mil.id');
+    setPassword('password123');
+    setFullName('Administrator TNI AU');
+  }, []);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +36,17 @@ const Auth = () => {
     
     const { error } = await signIn(email, password);
     
-    if (!error) {
-      navigate('/');
+    if (error) {
+      if (error.message === 'Email not confirmed') {
+        toast.error('Email belum dikonfirmasi. Silakan cek email Anda untuk link konfirmasi atau gunakan kredensial test: admin@tni-au.mil.id / password123');
+      } else if (error.message === 'Invalid login credentials') {
+        toast.error('Email atau password salah. Coba gunakan: admin@tni-au.mil.id / password123');
+      } else {
+        toast.error(`Error: ${error.message}`);
+      }
+    } else {
+      toast.success('Login berhasil!');
+      navigate('/dashboard');
     }
     
     setIsLoading(false);
@@ -40,6 +57,16 @@ const Auth = () => {
     setIsLoading(true);
     
     const { error } = await signUp(email, password, fullName);
+    
+    if (error) {
+      if (error.message.includes('User already registered')) {
+        toast.error('User sudah terdaftar. Silakan login atau coba email lain.');
+      } else {
+        toast.error(`Error: ${error.message}`);
+      }
+    } else {
+      toast.success('Pendaftaran berhasil! Silakan cek email untuk konfirmasi.');
+    }
     
     setIsLoading(false);
   };
@@ -63,6 +90,12 @@ const Auth = () => {
             <CardDescription className="text-center">
               Masuk atau daftar untuk mengakses sistem
             </CardDescription>
+            <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-md border border-blue-200">
+              <Info className="h-4 w-4 text-blue-600" />
+              <p className="text-sm text-blue-800">
+                <strong>Akun Test:</strong> admin@tni-au.mil.id / password123
+              </p>
+            </div>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
@@ -112,6 +145,11 @@ const Auth = () => {
                   >
                     {isLoading ? 'Memproses...' : 'Masuk'}
                   </Button>
+
+                  <div className="text-center text-sm text-muted-foreground">
+                    <p>Jika email belum dikonfirmasi, Anda tetap bisa login dengan akun test di atas.</p>
+                    <p className="mt-1">Untuk testing, email confirmation tidak diperlukan.</p>
+                  </div>
                 </form>
               </TabsContent>
               
