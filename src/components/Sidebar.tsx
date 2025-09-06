@@ -42,7 +42,7 @@ const Sidebar = () => {
       
       <nav className="flex-1 overflow-y-auto py-4">
         <ul className="space-y-1 px-2">
-          <SidebarItem icon={<Home size={20} />} label="Dashboard" to="/" />
+          <SidebarItem icon={<Home size={20} />} label="Dashboard" to="/dashboard" />
           <SidebarItem icon={<Box size={20} />} label="Logistik & Stok" to="/logistics" notificationCount={3} />
           <SidebarItem icon={<Zap size={20} />} label="Logistik Lanjutan" to="/advanced-logistics" />
           <SidebarItem icon={<Crosshair size={20} />} label="Operasi Militer" to="/military-operations" />

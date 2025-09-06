@@ -3,9 +3,52 @@ import React from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart4, FileText, Activity, Calendar, Users, Package } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { BarChart4, FileText, Activity, Calendar, Users, Package, Download, FileDown, Printer } from 'lucide-react';
+import { exportToCSV, exportToJSON, exportToPDF, generateSampleReportData } from '@/utils/exportUtils';
+import { toast } from 'sonner';
 
 const Reports = () => {
+  const handleExport = (reportType: string, format: 'csv' | 'json' | 'pdf') => {
+    const data = generateSampleReportData(reportType);
+    const timestamp = new Date().toISOString().split('T')[0];
+    const filename = `laporan_${reportType}_${timestamp}`;
+
+    switch (format) {
+      case 'csv':
+        exportToCSV(data, `${filename}.csv`);
+        toast.success(`Laporan ${reportType} berhasil diekspor ke CSV`);
+        break;
+      case 'json':
+        exportToJSON(data, `${filename}.json`);
+        toast.success(`Laporan ${reportType} berhasil diekspor ke JSON`);
+        break;
+      case 'pdf':
+        const htmlContent = generateReportHTML(reportType, data);
+        exportToPDF(htmlContent, `${filename}.pdf`);
+        toast.success(`Laporan ${reportType} berhasil diekspor ke PDF`);
+        break;
+    }
+  };
+
+  const generateReportHTML = (reportType: string, data: any[]) => {
+    if (!data || data.length === 0) return '<p>Tidak ada data untuk ditampilkan</p>';
+
+    const headers = Object.keys(data[0]);
+    const rows = data.map(row => 
+      `<tr>${headers.map(header => `<td>${row[header] || '-'}</td>`).join('')}</tr>`
+    ).join('');
+
+    return `
+      <h2>Laporan ${reportType.charAt(0).toUpperCase() + reportType.slice(1)}</h2>
+      <table>
+        <thead>
+          <tr>${headers.map(header => `<th>${header.replace(/_/g, ' ').toUpperCase()}</th>`).join('')}</tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  };
   return (
     <div className="flex flex-col h-screen">
       <Header />
@@ -109,8 +152,25 @@ const Reports = () => {
                       </div>
                     </div>
 
-                    <div className="text-right mt-2">
-                      <a href="#" className="text-sm text-tniau-lightblue hover:underline">Lihat laporan lengkap</a>
+                    <div className="text-right mt-2 flex gap-2 justify-end">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => handleExport('inventory', 'csv')}
+                        className="text-xs"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        CSV
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => handleExport('inventory', 'pdf')}
+                        className="text-xs"
+                      >
+                        <FileDown className="h-3 w-3 mr-1" />
+                        PDF
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -181,8 +241,25 @@ const Reports = () => {
                       </div>
                     </div>
 
-                    <div className="text-right mt-2">
-                      <a href="#" className="text-sm text-tniau-lightblue hover:underline">Unduh laporan</a>
+                    <div className="text-right mt-2 flex gap-2 justify-end">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => handleExport('hospitals', 'csv')}
+                        className="text-xs"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        CSV
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => handleExport('hospitals', 'pdf')}
+                        className="text-xs"
+                      >
+                        <Printer className="h-3 w-3 mr-1" />
+                        PDF
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
