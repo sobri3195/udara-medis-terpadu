@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { AlertTriangle, Shield, Package, Clock, Plus, Edit, Trash2 } from 'lucide-react';
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface CombatZoneSupply {
@@ -41,8 +40,7 @@ export function CombatZoneLogistics() {
     table: 'combat_zone_supplies',
     orderBy: { column: 'evacuation_priority', ascending: true }
   });
-  const { user, canManage } = useAuth();
-  const canEdit = canManage('military_operations');
+  const canEdit = true;
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingSupply, setEditingSupply] = useState<CombatZoneSupply | null>(null);

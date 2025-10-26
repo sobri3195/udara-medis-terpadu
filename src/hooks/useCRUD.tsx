@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
 interface CRUDOptions {
@@ -13,7 +12,6 @@ export const useCRUD = (options: CRUDOptions) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
 
   const { table, select = '*', orderBy } = options;
 
@@ -45,14 +43,9 @@ export const useCRUD = (options: CRUDOptions) => {
 
   const create = async (newItem: any) => {
     try {
-      const itemWithUser = {
-        ...newItem,
-        created_by: user?.id,
-      };
-
       const { data: result, error } = await supabase
         .from(table as any)
-        .insert([itemWithUser])
+        .insert([newItem])
         .select()
         .single();
 
@@ -112,10 +105,8 @@ export const useCRUD = (options: CRUDOptions) => {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchData();
-    }
-  }, [user, table]);
+    fetchData();
+  }, [table]);
 
   return {
     data,

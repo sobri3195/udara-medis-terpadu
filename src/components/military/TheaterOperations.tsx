@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { Target, MapPin, Users, Calendar, Plus, Edit, Trash2, DollarSign } from 'lucide-react';
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface TheaterOperation {
@@ -41,8 +40,7 @@ export function TheaterOperations() {
     table: 'theater_operations',
     orderBy: { column: 'start_date', ascending: false }
   });
-  const { user, canManage } = useAuth();
-  const canEdit = canManage('military_operations');
+  const canEdit = true;
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingOperation, setEditingOperation] = useState<TheaterOperation | null>(null);

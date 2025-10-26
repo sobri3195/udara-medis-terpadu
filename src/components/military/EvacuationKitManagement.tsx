@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Package, Weight, MapPin, Clock, Plus, Edit, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface EvacuationKit {
@@ -40,8 +39,7 @@ export function EvacuationKitManagement() {
     table: 'evacuation_kits',
     orderBy: { column: 'deployment_ready', ascending: false }
   });
-  const { user, canManage } = useAuth();
-  const canEdit = canManage('military_operations');
+  const canEdit = true;
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingKit, setEditingKit] = useState<EvacuationKit | null>(null);

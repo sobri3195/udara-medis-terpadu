@@ -11,7 +11,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -33,7 +32,6 @@ const MedicalServices = () => {
     table: 'medical_services',
     orderBy: { column: 'service_name', ascending: true }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -46,7 +44,7 @@ const MedicalServices = () => {
     status: 'active'
   });
 
-  const canEdit = canManage('medical_services');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({

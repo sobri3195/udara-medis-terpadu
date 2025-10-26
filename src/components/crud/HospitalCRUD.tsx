@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useCRUD } from '@/hooks/useCRUD';
-import { useAuth } from '@/hooks/useAuth';
 
 interface Hospital {
   id: string;
@@ -29,7 +28,6 @@ const HospitalCRUD = () => {
     table: 'hospitals',
     orderBy: { column: 'name', ascending: true }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -43,7 +41,7 @@ const HospitalCRUD = () => {
     available_ambulances: 0
   });
 
-  const canEdit = canManage('hospitals');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({

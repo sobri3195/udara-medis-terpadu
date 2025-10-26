@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Users, Bed, Activity, Plus, Edit, Trash2 } from 'lucide-react';
-import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 interface FieldHospital {
@@ -39,8 +38,7 @@ export function FieldHospitalManagement() {
     table: 'field_hospitals',
     orderBy: { column: 'created_at', ascending: false }
   });
-  const { user, canManage } = useAuth();
-  const canEdit = canManage('military_operations');
+  const canEdit = true;
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingHospital, setEditingHospital] = useState<FieldHospital | null>(null);

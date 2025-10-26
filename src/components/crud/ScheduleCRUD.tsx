@@ -10,7 +10,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { useCRUD } from '@/hooks/useCRUD';
-import { useAuth } from '@/hooks/useAuth';
 
 interface Schedule {
   id: string;
@@ -30,7 +29,6 @@ const ScheduleCRUD = () => {
     table: 'schedules',
     orderBy: { column: 'start_time', ascending: true }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -44,7 +42,7 @@ const ScheduleCRUD = () => {
     assigned_personnel: ''
   });
 
-  const canEdit = canManage('schedules');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({

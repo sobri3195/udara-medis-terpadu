@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useCRUD } from '@/hooks/useCRUD';
-import { useAuth } from '@/hooks/useAuth';
 
 interface Distribution {
   id: string;
@@ -29,7 +28,6 @@ const DistributionCRUD = () => {
     table: 'distributions',
     orderBy: { column: 'created_at', ascending: false }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -43,7 +41,7 @@ const DistributionCRUD = () => {
     approved_by: ''
   });
 
-  const canEdit = canManage('distributions');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({

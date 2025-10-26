@@ -8,7 +8,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useCRUD } from '@/hooks/useCRUD';
-import { useAuth } from '@/hooks/useAuth';
 
 interface InventoryItem {
   id: string;
@@ -29,7 +28,6 @@ const InventoryCRUD = () => {
     table: 'inventory',
     orderBy: { column: 'item_name', ascending: true }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -44,7 +42,7 @@ const InventoryCRUD = () => {
     expiry_date: ''
   });
 
-  const canEdit = canManage('inventory');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({

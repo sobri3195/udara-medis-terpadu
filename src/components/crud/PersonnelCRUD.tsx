@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useCRUD } from '@/hooks/useCRUD';
-import { useAuth } from '@/hooks/useAuth';
 
 interface Personnel {
   id: string;
@@ -31,7 +30,6 @@ const PersonnelCRUD = () => {
     table: 'personnel',
     orderBy: { column: 'name', ascending: true }
   });
-  const { canManage } = useAuth();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -45,7 +43,7 @@ const PersonnelCRUD = () => {
     email: ''
   });
 
-  const canEdit = canManage('personnel');
+  const canEdit = true;
 
   const resetForm = () => {
     setFormData({
