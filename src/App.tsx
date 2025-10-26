@@ -19,35 +19,50 @@ import Analytics from "./pages/Analytics";
 import QualityCompliance from "./pages/QualityCompliance";
 import MilitaryOperations from "./pages/MilitaryOperations";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { AuthProvider } from "./hooks/useAuth";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      staleTime: 5 * 60 * 1000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/logistics" element={<ProtectedRoute><LogisticsAndInventory /></ProtectedRoute>} />
-          <Route path="/military-operations" element={<ProtectedRoute><MilitaryOperations /></ProtectedRoute>} />
-          <Route path="/advanced-logistics" element={<ProtectedRoute><AdvancedLogistics /></ProtectedRoute>} />
-          <Route path="/medical-services" element={<ProtectedRoute><MedicalServices /></ProtectedRoute>} />
-          <Route path="/personnel" element={<ProtectedRoute><Personnel /></ProtectedRoute>} />
-          <Route path="/distribution" element={<ProtectedRoute><Distribution /></ProtectedRoute>} />
-          <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
-          <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
-          <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
-          <Route path="/quality-compliance" element={<ProtectedRoute><QualityCompliance /></ProtectedRoute>} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/logistics" element={<ProtectedRoute><LogisticsAndInventory /></ProtectedRoute>} />
+              <Route path="/military-operations" element={<ProtectedRoute><MilitaryOperations /></ProtectedRoute>} />
+              <Route path="/advanced-logistics" element={<ProtectedRoute><AdvancedLogistics /></ProtectedRoute>} />
+              <Route path="/medical-services" element={<ProtectedRoute><MedicalServices /></ProtectedRoute>} />
+              <Route path="/personnel" element={<ProtectedRoute><Personnel /></ProtectedRoute>} />
+              <Route path="/distribution" element={<ProtectedRoute><Distribution /></ProtectedRoute>} />
+              <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
+              <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
+              <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+              <Route path="/quality-compliance" element={<ProtectedRoute><QualityCompliance /></ProtectedRoute>} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
