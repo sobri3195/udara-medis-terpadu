@@ -18,6 +18,11 @@ import Reports from "./pages/Reports";
 import Analytics from "./pages/Analytics";
 import QualityCompliance from "./pages/QualityCompliance";
 import MilitaryOperations from "./pages/MilitaryOperations";
+import EmergencyResponse from "./pages/EmergencyResponse";
+import EquipmentMaintenance from "./pages/EquipmentMaintenance";
+import Telemedicine from "./pages/Telemedicine";
+import BloodBank from "./pages/BloodBank";
+import TrainingCertification from "./pages/TrainingCertification";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { AuthProvider } from "./hooks/useAuth";
@@ -55,6 +60,11 @@ const App = () => (
               <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
               <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
               <Route path="/quality-compliance" element={<ProtectedRoute><QualityCompliance /></ProtectedRoute>} />
+              <Route path="/emergency-response" element={<ProtectedRoute><EmergencyResponse /></ProtectedRoute>} />
+              <Route path="/equipment-maintenance" element={<ProtectedRoute><EquipmentMaintenance /></ProtectedRoute>} />
+              <Route path="/telemedicine" element={<ProtectedRoute><Telemedicine /></ProtectedRoute>} />
+              <Route path="/blood-bank" element={<ProtectedRoute><BloodBank /></ProtectedRoute>} />
+              <Route path="/training-certification" element={<ProtectedRoute><TrainingCertification /></ProtectedRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
